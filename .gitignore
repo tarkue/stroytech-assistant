@@ -32,3 +32,6 @@ logs/
 !/work/experiments/full-v4/
 !/work/experiments/recovery-smoke.json
 !/work/nlp-report.txt
+
+# Local nonsecret provider preferences
+/config.toml

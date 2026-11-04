@@ -24,4 +24,3 @@ Preserve negation and exceptions using ne or false. Preserve units (hours, tonne
 
 class ExtractionError(ValueError):
     """Unavailable inference, malformed output or unsafe candidate."""
-

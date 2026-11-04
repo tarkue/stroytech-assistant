@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import time
 from .extraction import ExtractionError, PROMPT_VERSION, extract_rules
+from .config import load_settings
 
 
 def _signature(rule):
@@ -30,7 +31,9 @@ def score_rules(predicted, gold):
     return dict(tp=tp,fp=fp,fn=fn,precision=precision,recall=recall,f1=2*precision*recall/(precision+recall) if precision+recall else 0)
 
 
-def run_experiment(corpus_path, output_dir, *, model='qwen2.5-coder:7b', limit=None, timeout=120):
+def run_experiment(corpus_path, output_dir, *, model=None, provider=None, limit=None, timeout=None):
+    settings=load_settings(provider,model=model,timeout=timeout)
+    model,provider,timeout=settings.model,settings.provider,settings.timeout
     corpus_bytes=Path(corpus_path).read_bytes()
     cases=json.loads(corpus_bytes)['cases']
     if limit is not None: cases=cases[:limit]
@@ -40,7 +43,7 @@ def run_experiment(corpus_path, output_dir, *, model='qwen2.5-coder:7b', limit=N
         for case in cases:
             transcript=[]; start=time.monotonic(); predicted=[]; error=None
             try:
-                predicted=extract_rules(case['text'],model,pipeline,timeout=timeout,transcript=transcript)
+                predicted=extract_rules(case['text'],model,pipeline,provider=provider,timeout=timeout,transcript=transcript)
             except ExtractionError as exc:
                 error=str(exc)
             record=dict(case_id=case['id'],pipeline=pipeline,predicted=predicted,gold=case['gold'],error=error,elapsed_seconds=round(time.monotonic()-start,3),transcript=transcript,metrics=score_rules(predicted,case['gold']))
@@ -61,11 +64,12 @@ def run_experiment(corpus_path, output_dir, *, model='qwen2.5-coder:7b', limit=N
             negative_errors=sum(not r['gold'] and r['error'] is not None for r in selected),
             negative_false_positives=sum(not r['gold'] and bool(r['predicted']) for r in selected))
     try:
+        if provider!='ollama': raise OSError()
         version=subprocess.run(['ollama','--version'],capture_output=True,text=True,timeout=5).stdout.strip()
         installed=subprocess.run(['ollama','list'],capture_output=True,text=True,timeout=5).stdout.strip()
     except (OSError,subprocess.TimeoutExpired):
         version=installed='unavailable'
-    result=dict(created_at=datetime.now(timezone.utc).isoformat(),model=model,ollama_version=version,installed_models=installed,prompt_version=PROMPT_VERSION,corpus_sha256=hashlib.sha256(corpus_bytes).hexdigest(),limitation='Small manually annotated synthetic corpus, not an independent benchmark. Exact text effect matching is conservative; errors on nonempty gold count as missed gold rules; errors on empty gold are NOT correct negative inference. Report usable_outputs, exact_cases, negative_correct and errors alongside F1.',summaries=summaries)
+    result=dict(created_at=datetime.now(timezone.utc).isoformat(),provider=provider,model=model,ollama_version=version,installed_models=installed,prompt_version=PROMPT_VERSION,corpus_sha256=hashlib.sha256(corpus_bytes).hexdigest(),limitation='Small manually annotated synthetic corpus, not an independent benchmark. Exact text effect matching is conservative; errors on nonempty gold count as missed gold rules; errors on empty gold are NOT correct negative inference. Report usable_outputs, exact_cases, negative_correct and errors alongside F1.',summaries=summaries)
     (output/'summary.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     return result
 
@@ -75,10 +79,11 @@ def main():
     parser.add_argument('--corpus',default='data/extraction_cases.json')
     parser.add_argument('--output',default='work/experiments')
     parser.add_argument('--limit',type=int)
-    parser.add_argument('--timeout',type=float,default=120)
-    parser.add_argument('--model',default='qwen2.5-coder:7b')
+    parser.add_argument('--timeout',type=float)
+    parser.add_argument('--model')
+    parser.add_argument('--provider',choices=['ollama','openrouter'])
     args=parser.parse_args()
-    print(json.dumps(run_experiment(args.corpus,args.output,model=args.model,limit=args.limit,timeout=args.timeout),ensure_ascii=False,indent=2))
+    print(json.dumps(run_experiment(args.corpus,args.output,model=args.model,provider=args.provider,limit=args.limit,timeout=args.timeout),ensure_ascii=False,indent=2))
 
 
 if __name__=='__main__': main()

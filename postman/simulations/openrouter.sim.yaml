@@ -1,0 +1,8 @@
+simulation: openrouter-local
+routing: path
+mocks:
+  - name: openrouter
+    routeKey: openrouter
+    origin:
+      - openrouter.ai
+    path: postman/mocks/openrouter/config.yaml

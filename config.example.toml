@@ -1,0 +1,6 @@
+# Copy to ignored config.toml for local, nonsecret defaults.
+provider = "ollama"
+model = "qwen2.5-coder:7b"
+timeout = 120
+# For OpenRouter choose provider = "openrouter" and an explicit model ID,
+# or set OPENROUTER_MODEL in the environment. API keys belong only in env.

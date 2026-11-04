@@ -1,0 +1,37 @@
+purpose:
+  stands_in_for: OpenRouter nonstreaming Chat Completions HTTP dependency, local subset only.
+  unblocks: Real urllib client and both rule-extraction pipeline orders without paid requests.
+assumptions:
+  - id: chat-wire-contract
+    status: supported
+    claim: The modeled OpenRouter endpoint accepts JSON messages and Bearer authentication and returns choices with assistant content.
+    reason: Official overview and authentication documentation describe this envelope; local handler checks the subset the caller sends.
+    verification: On 2026-11-04 read official contract and exercised actual client HTTP; verbose logs contain the expected path, model, messages, stream=false and JSON content type. Authorization is redacted in logs and checked exactly by the handler.
+    source: https://openrouter.ai/docs/api_reference/overview; https://openrouter.ai/docs/api_reference/authentication; postman/mocks/openrouter/default.js; scripts/verify_openrouter_logs.py
+    updated_at: '2026-11-04'
+  - id: caller-local-outcomes
+    status: supported
+    claim: Against this local stand-in both pipeline orders return one pending candidate, and modeled HTTP errors, invalid content and delayed responses raise ExtractionError.
+    reason: The real urllib opener ran through localhost HTTP; no transport stub was used. This establishes caller behavior only.
+    verification: Fingerprint local-20261104; scripts/verify_openrouter_http.py passed success in both orders and 401/402/429/500, malformed envelope, invalid JSON content, empty content and timeout. Log verification passed actual POST envelope checks and observed a 1500ms delayed response after a 200ms caller timeout.
+    source: scripts/verify_openrouter_http.py; scripts/verify_openrouter_logs.py; docs/openrouter-testing.md
+    updated_at: '2026-11-04'
+  - id: production-model-output
+    status: unknown
+    claim: The configured real model returns schema-valid Russian rule content suitable for both application stages.
+    reason: Model content is a synthetic fixture, not a provider promise; no paid request was made.
+    verification: Local fixture passed candidate validation; real model availability, permissions, credits, semantic quality and schema compliance remain unverified.
+    source: stroytech/extraction_schema.py; postman/mocks/openrouter/default.js
+    updated_at: '2026-11-04'
+  - id: provider-owner-provenance
+    status: unknown
+    claim: An owner-maintained reusable OpenRouter Postman mock is available.
+    reason: Authenticated owner lookup was explicitly skipped; installed CLI lacks the status command and discovery found irrelevant providers.
+    verification: Built an independently maintained contract subset from official documentation, without claiming owner endorsement or cloud lookup.
+    source: docs/openrouter-testing.md
+    updated_at: '2026-11-04'
+fingerprints:
+  - id: local-20261104
+    date: '2026-11-04'
+    commit: f088f3bb461da90c86440867a4e183fb626dcfaa (dirty shared tree; backend work in progress)
+    cli: Postman 1.75.0

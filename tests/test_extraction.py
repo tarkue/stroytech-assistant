@@ -72,4 +72,3 @@ class ExtractionTests(unittest.TestCase):
         with self.assertRaises(ExtractionError): extract_rules('abc',transcript=transcript)
         self.assertEqual(transcript[0]['raw_response'],'partial')
         self.assertEqual(transcript[0]['stderr'],'server refused')
-

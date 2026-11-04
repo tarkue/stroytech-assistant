@@ -1,0 +1,10 @@
+version: 1
+name: openrouter
+slug: openrouter
+protocol: http
+origin: openrouter.ai
+interceptRequests: true
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

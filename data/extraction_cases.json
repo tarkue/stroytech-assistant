@@ -1,0 +1,341 @@
+{
+  "description": "Manually annotated synthetic Russian educational corpus, not an independent benchmark. Gold compares exact condition/effect sets; metadata/entity quality requires human review. All prices and thresholds are examples, not engineering approvals.",
+  "annotation": "Authored before model runs; warning/require/reject strings have canonical gold wording, so synonyms count as mismatches.",
+  "cases": [
+    {
+      "id": "rock",
+      "text": "При скальном грунте требуется гидромолот.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "soil",
+              "op": "eq",
+              "value": "rock"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Гидромолот"
+            }
+          ]
+        }
+      ],
+      "note": "Single causal requirement."
+    },
+    {
+      "id": "negative",
+      "text": "Компания основана в 1995 году. У нас работают опытные водители.",
+      "gold": [],
+      "note": "Irrelevant narrative, no causal rule."
+    },
+    {
+      "id": "negation",
+      "text": "Если работа выполняется ночью и освещения нет, работа запрещена.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "night",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "lighting",
+              "op": "eq",
+              "value": false
+            }
+          ],
+          "effects": [
+            {
+              "kind": "reject",
+              "value": "Работа запрещена"
+            }
+          ]
+        }
+      ],
+      "note": "Conjunction and explicit negation."
+    },
+    {
+      "id": "threshold",
+      "text": "Если масса груза больше 10 тонн, требуется согласование.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "load_t",
+              "op": "gt",
+              "value": 10
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Согласование"
+            }
+          ]
+        }
+      ],
+      "note": "Strict threshold in tonnes."
+    },
+    {
+      "id": "rain_soft",
+      "text": "Если грунт мягкий и идет дождь, доступ затруднен.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "soil",
+              "op": "eq",
+              "value": "soft"
+            },
+            {
+              "field": "weather",
+              "op": "eq",
+              "value": "rain"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "fact",
+              "value": {
+                "field": "access_risk",
+                "value": true
+              }
+            }
+          ]
+        }
+      ],
+      "note": "Intermediate fact."
+    },
+    {
+      "id": "exception",
+      "text": "Ночью требуется освещение, кроме случаев, когда освещение уже имеется.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "night",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "field": "lighting",
+              "op": "eq",
+              "value": false
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Освещение"
+            }
+          ]
+        }
+      ],
+      "note": "Exception retained as false condition."
+    },
+    {
+      "id": "price",
+      "text": "При узком подъезде доплата составляет 2000 рублей.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "narrow_access",
+              "op": "eq",
+              "value": true
+            }
+          ],
+          "effects": [
+            {
+              "kind": "surcharge",
+              "value": 2000
+            }
+          ]
+        }
+      ],
+      "note": "Explicit price only, educational."
+    },
+    {
+      "id": "overlap",
+      "text": "При дожде доступ затруднен. При дожде и мягком грунте доступ не затруднен.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "weather",
+              "op": "eq",
+              "value": "rain"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "fact",
+              "value": {
+                "field": "access_risk",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "field": "weather",
+              "op": "eq",
+              "value": "rain"
+            },
+            {
+              "field": "soil",
+              "op": "eq",
+              "value": "soft"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "fact",
+              "value": {
+                "field": "access_risk",
+                "value": false
+              }
+            }
+          ]
+        }
+      ],
+      "note": "Deliberate overlapping contradictory assigned facts; retain for expert."
+    },
+    {
+      "id": "or",
+      "text": "При дожде или слякоти требуется осмотр.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "weather",
+              "op": "eq",
+              "value": "rain"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Осмотр"
+            }
+          ]
+        },
+        {
+          "conditions": [
+            {
+              "field": "weather",
+              "op": "eq",
+              "value": "slush"
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Осмотр"
+            }
+          ]
+        }
+      ],
+      "note": "OR must split into two conjunction rules."
+    },
+    {
+      "id": "power",
+      "text": "Если рядом ЛЭП, требуется согласование.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "near_powerline",
+              "op": "eq",
+              "value": true
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Согласование"
+            }
+          ]
+        }
+      ],
+      "note": "Power line entity."
+    },
+    {
+      "id": "no_threshold",
+      "text": "Кран красивый и современный. Возможно, завтра понадобится техника.",
+      "gold": [],
+      "note": "No applicable causal condition; no invented values."
+    },
+    {
+      "id": "units",
+      "text": "При вылете стрелы не менее 5 метров требуется проверка.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "radius_m",
+              "op": "gte",
+              "value": 5
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Проверка"
+            }
+          ]
+        }
+      ],
+      "note": "Inclusive threshold."
+    },
+    {
+      "id": "duration",
+      "text": "Если длительность больше 8 часов, доплата 1500 рублей.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "duration_hours",
+              "op": "gt",
+              "value": 8
+            }
+          ],
+          "effects": [
+            {
+              "kind": "surcharge",
+              "value": 1500
+            }
+          ]
+        }
+      ],
+      "note": "Numeric hours and RUB."
+    },
+    {
+      "id": "groundwater",
+      "text": "При наличии грунтовых вод требуется дренаж.",
+      "gold": [
+        {
+          "conditions": [
+            {
+              "field": "groundwater",
+              "op": "eq",
+              "value": true
+            }
+          ],
+          "effects": [
+            {
+              "kind": "require",
+              "value": "Дренаж"
+            }
+          ]
+        }
+      ],
+      "note": "Additional independent domain case."
+    }
+  ]
+}

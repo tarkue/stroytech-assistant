@@ -1,0 +1,230 @@
+[
+  {
+    "id": "exc-mini",
+    "name": "Мини-экскаватор 3 т",
+    "work": [
+      "excavation"
+    ],
+    "equipment_type": "mini_excavator",
+    "heavy": false,
+    "rate_per_hour": 2200,
+    "delivery_cost": 5000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "exc-track",
+    "name": "Гусеничный экскаватор 20 т",
+    "work": [
+      "excavation"
+    ],
+    "equipment_type": "tracked_excavator",
+    "heavy": true,
+    "rate_per_hour": 3800,
+    "delivery_cost": 12000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "exc-wheel",
+    "name": "Колёсный экскаватор 16 т",
+    "work": [
+      "excavation"
+    ],
+    "equipment_type": "wheeled_excavator",
+    "heavy": true,
+    "rate_per_hour": 3400,
+    "delivery_cost": 7000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "drill-small",
+    "name": "Компактная буровая установка",
+    "work": [
+      "drilling"
+    ],
+    "equipment_type": "compact_drill",
+    "heavy": false,
+    "rate_per_hour": 3100,
+    "delivery_cost": 6500,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "drill-heavy",
+    "name": "Тяжёлая буровая установка",
+    "work": [
+      "drilling"
+    ],
+    "equipment_type": "heavy_drill",
+    "heavy": true,
+    "rate_per_hour": 5200,
+    "delivery_cost": 14000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "crane-25",
+    "name": "Автокран учебный 25 т",
+    "work": [
+      "lifting"
+    ],
+    "equipment_type": "crane",
+    "heavy": true,
+    "rate_per_hour": 4500,
+    "delivery_cost": 12000,
+    "capacity_table": [
+      {
+        "radius_m": 5,
+        "angle_deg": 60,
+        "capacity_t": 12
+      },
+      {
+        "radius_m": 10,
+        "angle_deg": 45,
+        "capacity_t": 6
+      },
+      {
+        "radius_m": 15,
+        "angle_deg": 30,
+        "capacity_t": 3
+      },
+      {
+        "radius_m": 20,
+        "angle_deg": 30,
+        "capacity_t": 1.5
+      }
+    ],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ.",
+    "lift_purpose": "cargo"
+  },
+  {
+    "id": "crane-50",
+    "name": "Автокран учебный 50 т",
+    "work": [
+      "lifting"
+    ],
+    "equipment_type": "crane",
+    "heavy": true,
+    "rate_per_hour": 6800,
+    "delivery_cost": 18000,
+    "capacity_table": [
+      {
+        "radius_m": 5,
+        "angle_deg": 60,
+        "capacity_t": 25
+      },
+      {
+        "radius_m": 10,
+        "angle_deg": 45,
+        "capacity_t": 14
+      },
+      {
+        "radius_m": 15,
+        "angle_deg": 30,
+        "capacity_t": 7
+      },
+      {
+        "radius_m": 25,
+        "angle_deg": 30,
+        "capacity_t": 3
+      }
+    ],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ.",
+    "lift_purpose": "cargo"
+  },
+  {
+    "id": "manipulator",
+    "name": "Манипулятор учебный 7 т",
+    "work": [
+      "lifting",
+      "transport"
+    ],
+    "equipment_type": "manipulator",
+    "heavy": true,
+    "rate_per_hour": 3300,
+    "delivery_cost": 6500,
+    "capacity_table": [
+      {
+        "radius_m": 3,
+        "angle_deg": 60,
+        "capacity_t": 7
+      },
+      {
+        "radius_m": 5,
+        "angle_deg": 45,
+        "capacity_t": 4
+      },
+      {
+        "radius_m": 8,
+        "angle_deg": 30,
+        "capacity_t": 1.5
+      }
+    ],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ.",
+    "lift_purpose": "cargo"
+  },
+  {
+    "id": "truck",
+    "name": "Самосвал учебный 20 т",
+    "work": [
+      "transport"
+    ],
+    "equipment_type": "truck",
+    "heavy": true,
+    "rate_per_hour": 2600,
+    "delivery_cost": 5000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "mixer",
+    "name": "Автобетоносмеситель учебный 7 м³",
+    "work": [
+      "concrete"
+    ],
+    "equipment_type": "mixer",
+    "heavy": true,
+    "rate_per_hour": 3000,
+    "delivery_cost": 6000,
+    "capacity_table": [],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовые таблицы; не паспорт техники и не разрешение работ."
+  },
+  {
+    "id": "aerial-platform",
+    "name": "Автовышка учебная (люди и инструмент)",
+    "work": [
+      "lifting"
+    ],
+    "equipment_type": "aerial_platform",
+    "heavy": true,
+    "rate_per_hour": 2400,
+    "delivery_cost": 6000,
+    "lift_purpose": "people",
+    "capacity_table": [
+      {
+        "radius_m": 5,
+        "angle_deg": 45,
+        "capacity_t": 0.2
+      },
+      {
+        "radius_m": 8,
+        "angle_deg": 30,
+        "capacity_t": 0.12
+      }
+    ],
+    "educational": true,
+    "notes": "Синтетические учебные цены и грузовая таблица корзины: масса людей вместе с инструментом. Не грузовой кран; не паспорт техники и не разрешение работ."
+  }
+]

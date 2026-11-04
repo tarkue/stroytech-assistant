@@ -1,0 +1,47 @@
+{
+  "created_at": "2026-11-04T12:51:10.437712+00:00",
+  "model": "qwen2.5-coder:7b",
+  "ollama_version": "Warning: could not connect to a running Ollama instance\nWarning: client version is 0.34.0",
+  "installed_models": "NAME                ID              SIZE      MODIFIED     \nbge-m3:latest       790764642607    1.2 GB    3 months ago    \nqwen2.5-coder:7b    dae161e27b0e    4.7 GB    4 months ago",
+  "prompt_version": "2026-11-04-v4",
+  "corpus_sha256": "1c00e2b5c2c927aa82c3e54ffc2a3f4d776b1c0a8aa70baa87adecdbc75d7549",
+  "limitation": "Small manually annotated synthetic corpus, not an independent benchmark. Exact text effect matching is conservative; errors on nonempty gold count as missed gold rules; errors on empty gold are NOT correct negative inference. Report usable_outputs, exact_cases, negative_correct and errors alongside F1.",
+  "summaries": {
+    "filter_first": {
+      "cases": 14,
+      "errors": 3,
+      "tp": 4,
+      "fp": 1,
+      "fn": 10,
+      "precision": 0.8,
+      "recall": 0.2857142857142857,
+      "f1": 0.4210526315789473,
+      "seconds": 100.276,
+      "usable_outputs": 11,
+      "usable_positive_outputs": 5,
+      "exact_cases": 6,
+      "negative_cases": 2,
+      "negative_correct": 2,
+      "negative_errors": 0,
+      "negative_false_positives": 0
+    },
+    "extract_first": {
+      "cases": 14,
+      "errors": 8,
+      "tp": 2,
+      "fp": 3,
+      "fn": 12,
+      "precision": 0.4,
+      "recall": 0.14285714285714285,
+      "f1": 0.21052631578947364,
+      "seconds": 243.203,
+      "usable_outputs": 6,
+      "usable_positive_outputs": 5,
+      "exact_cases": 2,
+      "negative_cases": 2,
+      "negative_correct": 0,
+      "negative_errors": 2,
+      "negative_false_positives": 0
+    }
+  }
+}

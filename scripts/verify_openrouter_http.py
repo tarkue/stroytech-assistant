@@ -6,9 +6,9 @@ from pathlib import Path
 from urllib.request import urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from stroytech import openrouter
+from stroytech.extraction import openrouter
 from stroytech.extraction import extract_rules
-from stroytech.extraction_schema import ExtractionError
+from stroytech.extraction.schema import ExtractionError
 
 BASE = 'http://127.0.0.1:43187/openrouter'
 TEXT = 'При работе на скале требуется гидромолот.'

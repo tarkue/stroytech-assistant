@@ -1,6 +1,6 @@
 # Local OpenRouter HTTP verification
 
-The local simulation exercises `stroytech.openrouter` and `extract_rules` through real urllib HTTP with a synthetic credential. Production keeps its fixed HTTPS host: the verification process temporarily assigns the module endpoint to loopback, restores it afterward, and never replaces the opener. No application restart, cloud upload, deployment, authenticated provider request or paid inference is involved.
+The local simulation exercises `stroytech.extraction.openrouter` and `extract_rules` through real urllib HTTP with a synthetic credential. Production keeps its fixed HTTPS host: the verification process temporarily assigns the module endpoint to loopback, restores it afterward, and never replaces the opener. No application restart, cloud upload, deployment, authenticated provider request or paid inference is involved.
 
 ## Run
 
